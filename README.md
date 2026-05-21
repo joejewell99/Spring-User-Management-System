@@ -9,6 +9,8 @@ This project is designed as a learning and portfolio project to demonstrate how 
 - Register and login users
 - JWT-based authentication
 - BCrypt password hashing
+- Public registration creates standard `USER` accounts
+- Optional bootstrap admin account for local testing
 - Create, read, update, and delete users
 - Role field with `USER` and `ADMIN`
 - Admin-protected user management endpoints
@@ -166,11 +168,17 @@ PUT    /api/users/{id}
 DELETE /api/users/{id}
 ```
 
-## Demo Security Note
+## Admin Account For Local Testing
 
-For local learning and demo convenience, newly registered users are currently assigned the `ADMIN` role by default in `AuthController`.
+Public registration creates `USER` accounts by default. To create an initial admin for testing the user management dashboard, start the backend with these environment variables:
 
-This makes the CRUD dashboard easier to test while learning the stack. Before using this as a production-style app, registration should be changed so public users become `USER` by default and admin accounts are created through a safer process.
+```text
+BOOTSTRAP_ADMIN_NAME=Admin User
+BOOTSTRAP_ADMIN_EMAIL=admin@example.com
+BOOTSTRAP_ADMIN_PASSWORD=password123
+```
+
+The bootstrap admin is only created when both email and password are provided, and only if that email does not already exist.
 
 ## Environment Variables
 
@@ -189,6 +197,9 @@ DATABASE_PASSWORD
 JWT_SECRET
 JWT_EXPIRATION_MS
 CORS_ALLOWED_ORIGINS
+BOOTSTRAP_ADMIN_NAME
+BOOTSTRAP_ADMIN_EMAIL
+BOOTSTRAP_ADMIN_PASSWORD
 ```
 
 Frontend API URL:

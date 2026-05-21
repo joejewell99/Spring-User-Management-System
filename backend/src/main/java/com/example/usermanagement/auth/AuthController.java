@@ -43,12 +43,11 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already registered");
         }
 
-        Role role = Role.ADMIN;
         AppUser user = new AppUser(
                 request.name(),
                 request.email(),
                 passwordEncoder.encode(request.password()),
-                role
+                Role.USER
         );
         AppUser saved = userRepository.save(user);
         String token = jwtService.generateToken(saved);
